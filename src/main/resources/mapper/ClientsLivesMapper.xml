@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nextu.dao.ClientsLivesMapper" >
+  <resultMap id="BaseResultMap" type="com.nextu.model.ClientsLives" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="live_id" property="liveId" jdbcType="BIGINT" />
+    <result column="people" property="people" jdbcType="INTEGER" />
+ 
+    
+  </resultMap>
+
+ <!-- 查询热门直播 --> 
+ <select id="queryForPopularLiveList" resultType="com.nextu.model.sectionshare.liveroom.impl_LiveRoom_Model">
+ SELECT clients.name as user_Name,clients.image as user_Image,
+ clients_lives.people as user_Count,lives.image as user_Poster,
+ lives.theme as user_Title
+ from clients_lives
+ LEFT JOIN clients on clients_lives.client_id = clients.client_id 
+ LEFT JOIN lives on clients_lives.live_id = lives.live_id
+ ORDER BY people DESC LIMIT 0,10
+ </select>
+ <!-- 通过id查询上传的直播数目 -->
+ <select id="selectLiveCountById" resultType="int" parameterType ="java.lang.String">
+ SELECT COUNT(live_id) from clients_lives WHERE client_id =#{id}
+ </select>
+  
+</mapper>

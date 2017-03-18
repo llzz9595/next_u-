@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nextu.dao.ReviewsMapper" >
+  <resultMap id="BaseResultMap" type="com.nextu.model.Reviews" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="review_id" property="reviewId" jdbcType="BIGINT" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="upload_date" property="uploadDate" jdbcType="DATE" />
+    <result column="download_time" property="downloadTime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="queryForPopularReviewList" resultType="com.nextu.model.sectionshare.reviewroom.Impl_ReviewRoom_Model">
+   SELECT review_id as ReviewRoom_id,
+    reviews.image as ReviewRoom_Poster,
+    reviews.theme as ReviewRoom_Title, 
+    reviews.type as ReviewRoom_Type,
+    reviews.upload_date as ReviewRoom_Date 
+    from reviews
+    ORDER BY reviews.download_time desc LIMIT 0 ,2
+  </select>
+    <select id="queryForLastestReviewList" resultType="com.nextu.model.sectionshare.reviewroom.Impl_ReviewRoom_Model">
+   SELECT review_id as ReviewRoom_id,
+    reviews.image as ReviewRoom_Poster,
+    reviews.theme as ReviewRoom_Title, 
+    reviews.type as ReviewRoom_Type,
+    reviews.upload_date as ReviewRoom_Date 
+    from reviews
+    ORDER BY reviews.upload_date desc LIMIT 0 ,2
+  </select>
+ 
+  
+</mapper>

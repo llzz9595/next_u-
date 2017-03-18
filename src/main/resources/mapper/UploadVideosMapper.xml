@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nextu.dao.UploadVideosMapper" >
+  <resultMap id="BaseResultMap" type="com.nextu.model.UploadVideos" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="video_id" property="videoId" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <select id= "selectUploadVideoCountById" resultType="int" parameterType="java.lang.String">
+  SELECT COUNT(*) from upload_videos WHERE client_id = #{id}
+  </select>
+</mapper>

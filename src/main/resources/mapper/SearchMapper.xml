@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nextu.dao.SearchMapper" >
+  <resultMap id="BaseResultMap" type="com.nextu.model.Search" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="search_id" property="id" jdbcType="INTEGER" />
+    <result column="search_content" property="searchcontent" jdbcType="VARCHAR" />
+    <result column="search_time" property="searchtime" jdbcType="VARCHAR" />
+    
+  </resultMap>
+    <select id="queryPopularSearch" resultType ="java.lang.String">
+ select search_content as searchContent from search ORDER BY search_time DESC LIMIT 0,10
+  </select>
+  
+  <select id="selectResultByKey"
+   
+   resultType = "com.nextu.model.sectionshare.search.SearchResult"
+  >
+  
+  
+ select 
+ "lives" as searchResultPart,
+live_id as searchResultId ,
+ type as searchResultType,theme as searchResultTheme ,image as searchResultImage
+  from lives 
+ WHERE lives.theme like '%${theme}%'
+ OR lives.type  like '%${type}%'
+ union all 
+  select 
+ "reviews" as searchResultPart,
+review_id as searchResultId ,
+ type as searchResultType,theme as searchResultTheme ,
+ image as searchResultImage
+  from reviews 
+ WHERE reviews.theme like '%${theme}%'
+ OR reviews.type  like '%${type}%'
+ union all 
+  select 
+ "videos" as searchResultPart,
+video_id as searchResultId ,
+ type as searchResultType,theme as searchResultTheme ,image as searchResultImage
+  from videos 
+ WHERE videos.theme like '%${theme}%'
+ OR videos.type  like '%${type}%'
+ 
+
+
+  </select>
+  
+</mapper>

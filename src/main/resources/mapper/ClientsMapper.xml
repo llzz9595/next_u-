@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nextu.dao.ClientsMapper" >
+  <resultMap id="BaseResultMap" type="com.nextu.model.Clients" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="rank_people" property="rankPeople" jdbcType="INTEGER" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+       
+  </resultMap>
+  <select id="selectBaseInfoById" parameterType = "java.lang.String" resultType = "com.nextu.model.userbaseinfo.UserBaseInfoModel">
+  select clients.name as userName,
+  clients.image as userPoster,
+  clients.rank as userRank,
+  clients.rank_people as userRankPeople
+  from clients 
+  WHERE client_id  = #{id} 
+  </select>
+  
+  
+</mapper>
